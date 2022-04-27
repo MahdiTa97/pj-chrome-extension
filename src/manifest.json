@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Machex",
+  "description": "PA Chrome Extension",
+  "version": "1.0.0",
+  "icons": {
+    "16": "16x16.png",
+    "32": "32x32.png",
+    "64": "64x64.png",
+    "128": "128x128.png",
+    "256": "256x256.png"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.bundle.js"
+  },
+  "action": {
+    "default_title": "Machex",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "16x16.png",
+      "32": "32x32.png",
+      "64": "64x64.png",
+      "128": "128x128.png",
+      "256": "256x256.png"
+    }
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "js": ["contentScript.bundle.js"],
+      "css": ["content.styles.css"]
+    }
+  ],
+  "devtools_page": "devtools.html",
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content.styles.css",
+        "16x16.png",
+        "32x32.png",
+        "64x64.png",
+        "128x128.png",
+        "256x256.png"
+      ],
+      "matches": []
+    }
+  ],
+  "permissions": ["storage", "cookies", "tabs", "declarativeContent"]
+}
