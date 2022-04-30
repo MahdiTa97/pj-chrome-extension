@@ -1,7 +1,7 @@
 {
   "name": "machex",
   "version": "1.0.0",
-  "description": "PA Chrome Extension built with React 18, Tailwind 3, Webpack 5, and Webpack Dev Server 4",
+  "description": "Pajoohyar Chrome Extension V2",
   "license": "MIT",
   "scripts": {
     "start": "node configs/webpack.dev.js",
@@ -29,6 +29,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^6.7.1",
+    "daisyui": "^2.14.2",
     "eslint": "^8.14.0",
     "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-flowtype": "^8.0.3",
