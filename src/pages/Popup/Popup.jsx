@@ -4,9 +4,9 @@ import './Popup.css';
 
 const Popup = () => {
   return (
-    <>
+    <div dir="rtl">
       <Login />
-    </>
+    </div>
   );
 };
 
