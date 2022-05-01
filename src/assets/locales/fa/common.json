@@ -9,5 +9,6 @@
   "email_address": "info@pajoohyar.ir",
   "new": "جدید",
   "login_message": "برای استفاده از افزونه ابتدا باید وارد بشوید!",
-  "login": "ورود"
+  "login": "ورود",
+  "loading": "در حال پردازش"
 }
