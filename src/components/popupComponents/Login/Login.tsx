@@ -4,7 +4,7 @@ import { useChromeStorageLocal } from '../../../lib/hooks';
 import { Text } from '../../ui';
 
 const Login = () => {
-  const [value, setValue] = useChromeStorageLocal('windowIdLogin', null);
+  const [value, setValue] = useChromeStorageLocal('tabIdLogin', null);
 
   function handleClick() {
     const screenWidth = window.screen.availWidth;
@@ -22,8 +22,8 @@ const Login = () => {
         type: 'popup',
       })
       .then((event) => {
-        if (event?.tabs?.[0].windowId) {
-          setValue(event?.tabs?.[0].windowId);
+        if (event?.tabs?.[0].id) {
+          setValue(event?.tabs?.[0].id);
         }
       });
   }

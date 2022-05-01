@@ -1,5 +1,5 @@
 export interface LocalStorage {
-  windowIdLogin?: number | null;
+  tabIdLogin?: number | null;
   options?: LocalStorageOptions;
 }
 
@@ -32,11 +32,9 @@ export function getStoredOptions(): Promise<LocalStorageOptions | null> {
 }
 
 // ======== Window Login ========
-export function setStoredWindowIdLogin(
-  windowIdLogin: number | null
-): Promise<void> {
+export function setStoredTabIdLogin(tabIdLogin: number | null): Promise<void> {
   const values: LocalStorage = {
-    windowIdLogin,
+    tabIdLogin,
   };
   return new Promise((resolve) => {
     chrome.storage.local.set(values, () => {
@@ -45,11 +43,11 @@ export function setStoredWindowIdLogin(
   });
 }
 
-export function getStoredWindowIdLogin(): Promise<number | null> {
-  const keys: LocalStorageKeys[] = ['windowIdLogin'];
+export function getStoredTabIdLogin(): Promise<number | null> {
+  const keys: LocalStorageKeys[] = ['tabIdLogin'];
   return new Promise((resolve) => {
     chrome.storage.local.get(keys, (res: LocalStorage) => {
-      resolve(res.windowIdLogin ?? null);
+      resolve(res.tabIdLogin ?? null);
     });
   });
 }

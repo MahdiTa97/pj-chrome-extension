@@ -1,13 +1,13 @@
 import {
-  getStoredWindowIdLogin,
-  setStoredWindowIdLogin,
+  getStoredTabIdLogin,
+  setStoredTabIdLogin,
   setStoredOptions,
 } from '../../lib/work-with-api/storage';
 
 console.log('This is the background page.');
 
 chrome.runtime.onInstalled.addListener(() => {
-  setStoredWindowIdLogin(null);
+  setStoredTabIdLogin(null);
   setStoredOptions({
     isLoggedIn: false,
     lang: 'fa',
@@ -19,19 +19,22 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 // Check Closed Windows and Update Storage
-chrome.windows.onRemoved.addListener((id) => {
-  getStoredWindowIdLogin().then((windowIdLogin) => {
-    if (windowIdLogin === id) setStoredWindowIdLogin(null);
+chrome.tabs.onRemoved.addListener((id) => {
+  getStoredTabIdLogin().then((tabIdLogin) => {
+    if (tabIdLogin === id) setStoredTabIdLogin(null);
   });
 });
 
-// function scanTabs() {
-//   chrome.windows.getAll({ populate: true }, (windows) => {
-//   });
-// }
-
-// chrome.tabs.onUpdated.addListener(()=>{
-//   chrome.windows.getAll({ populate: true }, (windows) => {
-//     // if(windows.find(item=>item.id===))
-//   });
-// });
+// Check Login popup page
+chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
+  if (
+    changeInfo.url &&
+    new URL(changeInfo.url).pathname.includes('/ext-auth-callback/')
+  ) {
+    getStoredTabIdLogin().then((tabIdLogin) => {
+      if (tabIdLogin === id) {
+        chrome.tabs.remove(id);
+      }
+    });
+  }
+});
