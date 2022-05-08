@@ -49,5 +49,6 @@
       "matches": []
     }
   ],
+  "host_permissions": ["<all_urls>"],
   "permissions": ["storage", "cookies", "tabs", "declarativeContent", "alarms"]
 }
