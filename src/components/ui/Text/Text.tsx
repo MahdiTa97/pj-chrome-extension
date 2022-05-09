@@ -49,7 +49,7 @@ const Text: FunctionComponent<Props> = ({
       }
     : {};
 
-  const rootClassName = cn(className);
+  const rootClassName = cn(className, variant);
 
   return (
     <Component className={rootClassName} style={style} {...htmlContentProps}>
