@@ -37,7 +37,7 @@ const Login = () => {
   );
 
   return (
-    <div className="card w-96 bg-slate-800 text-primary-content rounded-none">
+    <div className="card bg-slate-800 text-primary-content rounded-none">
       <div className="card-body">
         <Text variant="h2" className="card-title">
           app_name
