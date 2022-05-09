@@ -1,0 +1,12 @@
+{
+  "app_name": "Pajoohyar",
+  "loading": "Loading",
+  "login_message": "To use the extension, you should first login!",
+  "login": "Login",
+  "logout": "Logout",
+  "settings": "Settings",
+  "welcome": "Welcome",
+  "new_message": "New message!",
+  "see": "See",
+  "logout_message": "Logout Successful"
+}
