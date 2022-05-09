@@ -1047,6 +1047,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@heroicons/react@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-1.0.6.tgz#35dd26987228b39ef2316db3b1245c42eb19e324"
+  integrity sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==
+
 "@hot-loader/react-dom@^17.0.2":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@hot-loader/react-dom/-/react-dom-17.0.2.tgz#0b24e484093e8f97eb5c72bebdda44fc20bc8400"
@@ -1233,11 +1238,6 @@
   integrity sha512-5kPLG5BKpWYkw/LVOGWpiq3nEVqxiN32rTgI53Sk12/xHFQ2rG3ehI9IO+O3W2QoKeyB92dJkoka8SUm6BX1pA==
   dependencies:
     "@types/node" "*"
-
-"@types/js-cookie@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.2.tgz#451eaeece64c6bdac8b2dde0caab23b085899e0d"
-  integrity sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==
 
 "@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
   version "7.0.11"
@@ -3661,11 +3661,6 @@ jest-worker@^27.4.5:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
-
-js-cookie@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
-  integrity sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
