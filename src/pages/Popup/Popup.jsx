@@ -6,8 +6,6 @@ import './Popup.css';
 const Popup = () => {
   const [options, setOptions] = useChromeStorageLocal('options', null);
 
-  console.log('=====> options <=====', options);
-
   return <div dir="rtl">{options?.isLoggedIn ? <Panel /> : <Login />}</div>;
 };
 

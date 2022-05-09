@@ -6,18 +6,21 @@ export interface LocalStorage {
 export interface LocalStorageOptions {
   lang: 'fa' | 'en';
   isLoggedIn: boolean;
+  authToken: null;
 }
 
 export type LocalStorageKeys = keyof LocalStorage;
 
 // ======== Window Options ========
 export function setStoredOptions(options: LocalStorageOptions): Promise<void> {
-  const values: LocalStorage = {
-    options,
-  };
+  const keys: LocalStorageKeys[] = ['options'];
+
   return new Promise((resolve) => {
-    chrome.storage.local.set(values, () => {
-      resolve();
+    chrome.storage.local.get(keys, (res: LocalStorage) => {
+      let values = { options: { ...res.options, ...options } };
+      chrome.storage.local.set(values, () => {
+        resolve();
+      });
     });
   });
 }
