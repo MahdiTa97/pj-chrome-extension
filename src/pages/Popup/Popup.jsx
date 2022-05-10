@@ -18,11 +18,10 @@ const Popup = () => {
 
   return (
     <div dir={options?.lang === 'fa' ? 'rtl' : 'ltr'}>
-      {alert ? (
-        <LogoutAlert message="logout_message" setAlert={setAlert} />
-      ) : null}
       {options?.isLoggedIn ? (
         <Panel logoutHandler={logoutHandler} />
+      ) : alert ? (
+        <LogoutAlert message="logout_message" setAlert={setAlert} />
       ) : (
         <Login />
       )}
