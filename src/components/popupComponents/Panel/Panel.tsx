@@ -1,5 +1,4 @@
 import React from 'react';
-import { CogIcon } from '@heroicons/react/outline';
 import { Text } from '../../ui';
 
 interface Props {
