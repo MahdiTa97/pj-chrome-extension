@@ -6,6 +6,8 @@ import {
 
 console.log('This is the background page.');
 
+const jwtRegex = /([\w\-]{10,}\.){2}[\w\-]{10,}/g;
+
 chrome.runtime.onInstalled.addListener(() => {
   setStoredTabIdLogin(null);
 
@@ -34,9 +36,9 @@ chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
     changeInfo.url &&
     changeInfoUrl.pathname.includes('/ext-auth-callback/')
   ) {
-    const authToken = changeInfoUrl.pathname.replace('/ext-auth-callback/', '');
+    const regexExec = jwtRegex.exec(changeInfoUrl.pathname);
+    const authToken = regexExec[0];
     const isLoggedIn = !!authToken;
-
     setStoredOptions({
       authToken,
       isLoggedIn,
