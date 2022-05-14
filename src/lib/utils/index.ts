@@ -5,3 +5,4 @@ export {
   createChromeStorageStateHookLocal,
   createChromeStorageStateHookSync,
 } from './create-chrome-storage-state-hook';
+export { default as apiCall } from './api-call';
