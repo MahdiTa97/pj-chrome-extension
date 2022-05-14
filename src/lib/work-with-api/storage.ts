@@ -7,6 +7,7 @@ export interface LocalStorageOptions {
   lang: 'fa' | 'en';
   isLoggedIn: boolean;
   authToken: null;
+  username?: string;
 }
 
 export type LocalStorageKeys = keyof LocalStorage;
