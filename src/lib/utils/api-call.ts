@@ -1,7 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { PathLike } from 'fs';
 import qs from 'qs';
 import { getStoredOptions } from '../work-with-api/storage';
+
+const BASE_URL = 'https://core.pajoohyar.ir/';
 
 const tokenHandler = async (config: AxiosRequestConfig<any>): Promise<void> => {
   // Get Token Functionality
@@ -14,7 +16,7 @@ const tokenHandler = async (config: AxiosRequestConfig<any>): Promise<void> => {
 // Set config defaults when creating the instance
 const defaultOptions: AxiosRequestConfig = {
   timeout: 30000,
-  baseURL: 'https://core.pajoohyar.ir/',
+  baseURL: BASE_URL,
   headers: {
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     Pragma: 'no-cache',
@@ -31,7 +33,7 @@ const apiClient = () => {
 
   // Add a request interceptor
   instance.interceptors.request.use(
-    async (config) => {
+    async (config: AxiosRequestConfig) => {
       // Do something before request is sent
       try {
         await tokenHandler(config);
