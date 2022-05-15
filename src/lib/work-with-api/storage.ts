@@ -4,15 +4,15 @@ export interface LocalStorage {
 }
 
 export interface LocalStorageOptions {
-  lang: 'fa' | 'en';
+  lang?: 'fa' | 'en';
   isLoggedIn: boolean;
   authToken: null;
-  username?: string;
+  profile?: Object;
 }
 
 export type LocalStorageKeys = keyof LocalStorage;
 
-// ======== Window Options ========
+// ======== Options ========
 export function setStoredOptions(options: LocalStorageOptions): Promise<void> {
   const keys: LocalStorageKeys[] = ['options'];
 
@@ -35,7 +35,7 @@ export function getStoredOptions(): Promise<LocalStorageOptions | null> {
   });
 }
 
-// ======== Window Login ========
+// ======== tabIdLogin ========
 export function setStoredTabIdLogin(tabIdLogin: number | null): Promise<void> {
   const values: LocalStorage = {
     tabIdLogin,
