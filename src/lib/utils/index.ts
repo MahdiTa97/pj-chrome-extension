@@ -6,3 +6,5 @@ export {
   createChromeStorageStateHookSync,
 } from './create-chrome-storage-state-hook';
 export { default as apiCall } from './api-call';
+export { default as apiCallClass } from './api-call-class';
+export { default as apiClient } from './api-client';
