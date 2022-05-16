@@ -6,7 +6,7 @@ interface DropDownProps {
   profile: Profile;
 }
 const DropDown = ({ logoutHandler, profile }: DropDownProps) => (
-  <div className="dropdown dropdown-end dropdown-hover">
+  <div className="dropdown dropdown-end">
     <label tabIndex={0} className="btn btn-ghost btn-circle avatar placeholder">
       <div className="w-6 rounded-full bg-neutral-focus text-neutral-content">
         <img src={profile.avatar} alt="Profile" />
