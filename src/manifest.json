@@ -50,5 +50,15 @@
     }
   ],
   "host_permissions": ["<all_urls>"],
-  "permissions": ["storage", "cookies", "tabs", "declarativeContent", "alarms"]
+  "permissions": [
+    "storage",
+    "cookies",
+    "tabs",
+    "declarativeContent",
+    "alarms",
+    "webRequest",
+    "webRequestBlocking",
+    "contextMenus",
+    "activeTab"
+  ]
 }
