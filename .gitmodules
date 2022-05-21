@@ -1,3 +1,6 @@
 [submodule "src/zotero-libs/translate"]
 	path = src/zotero-libs/translate
 	url = https://github.com/zotero/translate.git
+[submodule "src/zotero-libs/utilities"]
+	path = src/zotero-libs/utilities
+	url = https://github.com/zotero/utilities.git
