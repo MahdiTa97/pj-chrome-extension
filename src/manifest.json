@@ -18,11 +18,11 @@
     "default_title": "Pajoohyar",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "16x16.png",
-      "32": "32x32.png",
-      "64": "64x64.png",
-      "128": "128x128.png",
-      "256": "256x256.png"
+      "16": "16x16_gray.png",
+      "32": "32x32_gray.png",
+      "64": "64x64_gray.png",
+      "128": "128x128_gray.png",
+      "256": "256x256_gray.png"
     }
   },
   "chrome_url_overrides": {
@@ -30,7 +30,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
+      "matches": ["https://scholar.google.com/*"],
       "js": ["contentScript.bundle.js"],
       "css": ["content.styles.css"]
     }

@@ -8,6 +8,10 @@ export function messagesHandler() {
   ) {
     switch (request.message) {
       case 'TabUpdated':
+        chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
+          console.log('=====> status <=====', res);
+        });
+
         if (document.location.href !== prevUrl) {
           prevUrl = document.location.href;
         }

@@ -23,3 +23,19 @@ chrome.tabs.onRemoved.addListener((id) => {
     if (tabIdLogin === id) setStoredTabIdLogin(null);
   });
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.isEnabled) {
+    chrome.action.setIcon({
+      path: {
+        16: '16x16.png',
+        32: '32x32.png',
+        64: '64x64.png',
+        128: '128x128.png',
+        256: '256x256.png',
+      },
+      tabId: sender.tab.id,
+    });
+  }
+  sendResponse({ status: 'success' });
+});
