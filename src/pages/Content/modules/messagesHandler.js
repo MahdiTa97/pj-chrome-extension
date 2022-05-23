@@ -1,3 +1,5 @@
+import { detectWeb } from '../../../translators/noor_digital_library';
+
 export function messagesHandler() {
   let prevUrl = window.location.href;
 
@@ -12,6 +14,9 @@ export function messagesHandler() {
           console.log('=====> status <=====', res);
         });
 
+        const res = detectWeb(document, document.location.href);
+
+        console.log('=====> res====! <=====', res);
         if (document.location.href !== prevUrl) {
           prevUrl = document.location.href;
         }

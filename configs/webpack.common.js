@@ -40,7 +40,7 @@ const entry = {
   options: path.join(scriptDir, 'pages', 'Options', 'index.jsx'),
   popup: path.join(scriptDir, 'pages', 'Popup', 'index.jsx'),
   background: path.join(scriptDir, 'pages', 'Background', 'index.js'),
-  contentScript: path.join(scriptDir, 'pages', 'Content', 'index.ts'),
+  contentScript: path.join(scriptDir, 'pages', 'Content', 'index.js'),
   devtools: path.join(scriptDir, 'pages', 'Devtools', 'index.js'),
   panel: path.join(scriptDir, 'pages', 'Panel', 'index.jsx'),
 };
