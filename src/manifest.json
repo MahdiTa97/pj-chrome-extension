@@ -30,7 +30,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://scholar.google.com/*"],
+      "matches": ["https://scholar.google.com/*", "https://noorlib.ir/*"],
       "js": ["contentScript.bundle.js"],
       "css": ["content.styles.css"]
     }
