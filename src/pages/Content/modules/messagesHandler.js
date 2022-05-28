@@ -1,4 +1,4 @@
-import { detectWeb } from '../../../translators/noor_digital_library';
+import { googleRun } from '../../../translators/google_scholar';
 
 export function messagesHandler() {
   let prevUrl = window.location.href;
@@ -11,16 +11,20 @@ export function messagesHandler() {
     switch (request.message) {
       case 'TabUpdated':
         chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
-          console.log('=====> status <=====', res);
+          console.log('=====> res <=====', res);
         });
 
-        const res = detectWeb(document, document.location.href);
-
-        console.log('=====> res====! <=====', res);
         if (document.location.href !== prevUrl) {
           prevUrl = document.location.href;
+          if (
+            new RegExp('^https://scholar.google.com/scholar?.*$').test(prevUrl)
+          ) {
+            console.log('=====> GOOGLE <=====', googleRun(document, prevUrl));
+          } else {
+            console.log('=====> ANY THING ELSE <=====');
+          }
         }
-        console.log('=====> prevUrl <=====', prevUrl);
+
         break;
 
       default:
