@@ -13,16 +13,15 @@ export function messagesHandler() {
         chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
           console.log('=====> res <=====', res);
         });
-
+        if (
+          new RegExp('^https://scholar.google.com/scholar?.*$').test(prevUrl)
+        ) {
+          console.log('=====> GOOGLE <=====', googleRun(document, prevUrl));
+        } else {
+          console.log('=====> ANY THING ELSE <=====');
+        }
         if (document.location.href !== prevUrl) {
           prevUrl = document.location.href;
-          if (
-            new RegExp('^https://scholar.google.com/scholar?.*$').test(prevUrl)
-          ) {
-            console.log('=====> GOOGLE <=====', googleRun(document, prevUrl));
-          } else {
-            console.log('=====> ANY THING ELSE <=====');
-          }
         }
 
         break;
