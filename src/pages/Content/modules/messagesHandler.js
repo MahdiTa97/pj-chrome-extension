@@ -1,8 +1,15 @@
-import { googleRun } from '../../../translators/google_scholar';
+import translators from '../../../translators';
+
+const scrapesHandler = (url, document) =>
+  translators.find((item) => item.target.test(url)).scrape(document);
+
+function extensionEnabler() {
+  chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
+    console.log('=====> res <=====', res);
+  });
+}
 
 export function messagesHandler() {
-  let prevUrl = window.location.href;
-
   chrome.runtime.onMessage.addListener(function (
     request,
     sender,
@@ -10,19 +17,11 @@ export function messagesHandler() {
   ) {
     switch (request.message) {
       case 'TabUpdated':
-        chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
-          console.log('=====> res <=====', res);
-        });
-        if (
-          new RegExp('^https://scholar.google.com/scholar?.*$').test(prevUrl)
-        ) {
-          console.log('=====> GOOGLE <=====', googleRun(document, prevUrl));
-        } else {
-          console.log('=====> ANY THING ELSE <=====');
-        }
-        if (document.location.href !== prevUrl) {
-          prevUrl = document.location.href;
-        }
+        extensionEnabler();
+        console.log(
+          '=====> scrapesHandler <=====',
+          scrapesHandler(window.location.href, document)
+        );
 
         break;
 
