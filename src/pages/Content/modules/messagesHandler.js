@@ -1,7 +1,9 @@
 import translators from '../../../translators';
 
 const scrapesHandler = (url, document) =>
-  translators.find((item) => item.target.test(url)).scrape(document);
+  translators
+    .find((item) => item.target.test(url))
+    .scrape(document, new URL(document.location.href));
 
 function extensionEnabler() {
   chrome.runtime.sendMessage({ isEnabled: true }, (res) => {

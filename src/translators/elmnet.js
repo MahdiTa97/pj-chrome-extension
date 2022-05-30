@@ -1,4 +1,8 @@
-const pageUrl = document.location;
+export const label = 'Elmnet';
+export const target = /^https:\/\/elmnet[-.]ir\/(search|article)/;
+
+const language = 'fa';
+
 const typeDict = [
   { fa: 'پایان‌نامه', csl: 'thesis' },
   { fa: 'مقاله کنفرانس', csl: 'paper-conference' },
@@ -6,13 +10,13 @@ const typeDict = [
   { fa: 'کتاب', csl: 'book' },
 ];
 
-const language = 'fa';
-
 function detailPage() {
   const data = { language };
 
   // type
-  const textType = document.querySelector('#info > h1 > span').text().trim();
+  const textType = document
+    .querySelector('#info > h1 > span')
+    ?.textContent.trim();
 
   data.type = typeDict.find((typeObject) => typeObject.fa === textType).csl;
 
@@ -21,14 +25,12 @@ function detailPage() {
   // title
   data.title = document
     .querySelector('#info > h1 > a > span:nth-child(1)')
-    .text()
-    .trim();
+    ?.textContent.trim();
 
   // abstract
   const abstract = document
     .querySelector('#info > div:nth-child(5)')
-    .text()
-    .trim()
+    ?.textContent.trim()
     .substr(64);
 
   if (abstract !== 'چکیده ندارد.' && abstract !== '') {
@@ -38,26 +40,27 @@ function detailPage() {
   // creators
   const creatorsString = document
     .querySelector('#info > div.creators > span')
-    .text()
-    .trim();
+    ?.textContent.trim();
 
-  data.creators = creatorsString.split('،').map((creator) => ({
+  data.creators = creatorsString?.split('،').map((creator) => ({
     literal: creator.trim(),
     position: 'author',
     type: 1, // literal
   }));
 
   // publish
-  const publishString = document.querySelector('#info > .jt').text().trim();
-  const [publisher, issued] = publishString.split(/[-»]/);
-  data.publisher = publisher.trim();
+  const publishString = document
+    .querySelector('#info > .jt')
+    ?.textContent.trim();
+  const [publisher, issued] = publishString?.split(/[-»]/);
+  data.publisher = publisher?.trim();
   data.issued = { 'date-parts': [[(issued || '').trim()]] };
 
   // keywords
   const keywordsString = document.querySelector('#info > div.keywords');
   const keywords = [];
-  for (let i = 0; i < keywordsString.children().length; i++) {
-    keywords.push(keywordsString.children()[i].textContent.trim());
+  for (let i = 0; i < keywordsString?.children.length; i++) {
+    keywords.push(keywordsString?.children[i].textContent.trim());
   }
   data.keywords = keywords;
 
@@ -124,11 +127,15 @@ function listPage() {
   return data;
 }
 
-export function scrape(document) {
-  if (new RegExp('^https://elmnet.ir/article/.*$').test(pageUrl)) {
-    return detailPage();
-  }
-  if (new RegExp('^https://elmnet.ir/search').test(pageUrl)) {
-    return listPage();
+export function scrape(document, url) {
+  const type = url.pathname.replace('/', '').split('/')[0];
+
+  switch (type) {
+    case 'article':
+      return detailPage();
+    case 'search':
+      return listPage();
+    default:
+      break;
   }
 }

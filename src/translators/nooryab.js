@@ -103,10 +103,8 @@ const searchApi = (source = 'all') => {
   xhr.send(data);
 };
 
-export function scrape(document) {
-  const newPageUrl = new URL(document.location.href);
-
-  const type = newPageUrl.pathname.replace('/', '');
+export function scrape(document, url) {
+  const type = url.pathname.replace('/', '').split('/')[0];
 
   return searchApi(type === 'compound' ? 'all' : type);
 }
