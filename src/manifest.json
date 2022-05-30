@@ -30,7 +30,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://scholar.google.com/*", "https://search.inoor.ir/*"],
+      "matches": [
+        "https://scholar.google.com/*",
+        "https://search.inoor.ir/*",
+        "https://elmnet.ir/*"
+      ],
       "js": ["contentScript.bundle.js"],
       "css": ["content.styles.css"]
     }
