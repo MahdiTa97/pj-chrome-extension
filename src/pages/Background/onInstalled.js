@@ -16,9 +16,5 @@ export function onInstalled() {
     chrome.alarms.create({
       periodInMinutes: 60,
     });
-
-    chrome.tabs.create({
-      url: 'https://pajoohyar.ir/extensions/',
-    });
   });
 }

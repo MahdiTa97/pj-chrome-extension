@@ -1,10 +1,19 @@
 import cn from 'classnames';
-import React from 'react';
-import { useChromeStorageLocal } from '../../../lib/hooks';
+import React, { useEffect, useState } from 'react';
+import {
+  getStoredTabIdLogin,
+  setStoredTabIdLogin,
+} from '../../../lib/work-with-api/storage';
 import { Text } from '../../ui';
 
 const Login = () => {
-  const [value, setValue] = useChromeStorageLocal('tabIdLogin', null);
+  const [value, setValue] = useState<number | null>();
+
+  useEffect(() => {
+    getStoredTabIdLogin().then((res) => {
+      setValue(res);
+    });
+  }, []);
 
   function handleClick() {
     const screenWidth = window.screen.availWidth;
@@ -23,7 +32,7 @@ const Login = () => {
       })
       .then((event) => {
         if (event?.tabs?.[0].id) {
-          setValue(event?.tabs?.[0].id);
+          setStoredTabIdLogin(event?.tabs?.[0].id);
         }
       });
   }

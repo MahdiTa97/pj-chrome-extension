@@ -61,7 +61,6 @@
     "declarativeContent",
     "alarms",
     "webRequest",
-    "webRequestBlocking",
     "contextMenus",
     "activeTab"
   ]

@@ -10,33 +10,37 @@ export function loginPopupListener() {
   chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
     if (tab.url && tab.url.includes('/ext-auth-callback/')) {
       const regexExec = jwtRegex.exec(new URL(tab.url).pathname);
-      const authToken = regexExec[0];
-      const isLoggedIn = !!authToken;
+      if (regexExec) {
+        const authToken = regexExec[0];
+        const isLoggedIn = !!authToken;
 
-      (async function () {
-        try {
-          // Request to get user profile data
-          const profile = await apiClient('api/auth/me', {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-            },
-          });
+        (async function () {
+          try {
+            // Request to get user profile data
+            const profile = await apiClient('api/auth/me', {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+              },
+            });
 
-          // Set data in the chrome storage options-field
-          await setStoredOptions({
-            authToken,
-            isLoggedIn,
-            profile: profile,
-          });
+            // Set data in the chrome storage options-field
+            await setStoredOptions({
+              authToken,
+              isLoggedIn,
+              profile: profile,
+            });
 
-          // Get opened tab id from chrome storage
-          const tabIdLogin = await getStoredTabIdLogin();
+            // Get opened tab id from chrome storage
+            const tabIdLogin = await getStoredTabIdLogin();
 
-          // Check and close tab
-          if (tabIdLogin === id) await chrome.tabs.remove(id);
-        } catch (error) {}
-      })();
+            // Check and close tab
+            if (tabIdLogin === id) await chrome.tabs.remove(id);
+          } catch (error) {
+            console.log('=====> error <=====', error);
+          }
+        })();
+      }
     }
   });
 }

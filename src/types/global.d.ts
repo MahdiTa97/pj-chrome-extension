@@ -18,13 +18,12 @@ interface IScrapeData {
   keywords?: (string | undefined)[];
 }
 
-type TScrape = (
-  document: Document,
-  url: URL
-) => {
+type TScrapeResponse = {
   type: 'document' | 'collection';
   result?: TScrapeResult;
 } | null;
+
+type TScrape = (document: Document, url: URL) => TScrapeResponse;
 
 interface IDoWeb {
   target: RegExp;

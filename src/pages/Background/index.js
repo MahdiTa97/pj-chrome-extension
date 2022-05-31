@@ -15,16 +15,21 @@ onInstalled();
 loginPopupListener();
 
 // Listener: Updated Tab Message to Content Script
-tabUpdaterListener();
+// tabUpdaterListener();
 
 // Listener: Check Closed Windows and Update Storage
 chrome.tabs.onRemoved.addListener((id) => {
-  getStoredTabIdLogin().then((tabIdLogin) => {
-    if (tabIdLogin === id) setStoredTabIdLogin(null);
-  });
+  getStoredTabIdLogin()
+    .then((tabIdLogin) => {
+      if (tabIdLogin === id) setStoredTabIdLogin(null);
+    })
+    .catch((err) => {
+      console.log('=====> err <=====', err);
+    });
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('=====> message <=====', message);
   if (message.isEnabled) {
     chrome.action.setIcon({
       path: {
@@ -37,5 +42,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       tabId: sender.tab.id,
     });
   }
+  // else if (message.type === 'RUN_TRANSLATOR') {
+  //   console.log('=====> mahdi in kar mikone <=====');
+  // }
   sendResponse({ status: 'success' });
 });

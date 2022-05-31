@@ -24,10 +24,11 @@ export function messagesHandler() {
         getStoredOptions().then((res) => {
           if (res?.isLoggedIn) {
             extensionEnabler();
-            console.log(
-              '=====> scrapesHandler <=====',
-              scrapesHandler(window.location.href, document)
+            const translatorResponse = scrapesHandler(
+              window.location.href,
+              document
             );
+            console.log('=====> scrapesHandler <=====', translatorResponse);
           }
         });
 
@@ -36,5 +37,6 @@ export function messagesHandler() {
       default:
         break;
     }
+    sendResponse('The message has been gotten from messagesHandler');
   });
 }

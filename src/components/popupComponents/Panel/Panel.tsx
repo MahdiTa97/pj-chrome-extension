@@ -4,7 +4,7 @@ import { DropDown } from '../';
 
 interface Props {
   logoutHandler: Function;
-  profile: Profile;
+  profile?: Profile;
 }
 
 const Panel = (props: Props) => {
