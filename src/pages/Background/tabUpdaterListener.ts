@@ -11,7 +11,7 @@ export function tabUpdaterListener() {
             message: 'TabUpdated',
           },
           (res) => {
-            console.log('=====> res <=====', res);
+            console.log('=====> res <=====', chrome.runtime.lastError, res);
           }
         );
       }
