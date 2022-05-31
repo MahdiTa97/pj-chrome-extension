@@ -10,8 +10,8 @@ export function loginPopupListener() {
   chrome.tabs.onUpdated.addListener((id, changeInfo, tab) => {
     if (tab.url && tab.url.includes('/ext-auth-callback/')) {
       const regexExec = jwtRegex.exec(new URL(tab.url).pathname);
-      if (regexExec) {
-        const authToken = regexExec[0];
+      const authToken = regexExec?.[0] ?? null;
+      if (regexExec && authToken) {
         const isLoggedIn = !!authToken;
 
         (async function () {

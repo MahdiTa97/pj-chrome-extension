@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         128: '128x128.png',
         256: '256x256.png',
       },
-      tabId: sender.tab.id,
+      tabId: sender.tab?.id,
     });
   }
   // else if (message.type === 'RUN_TRANSLATOR') {

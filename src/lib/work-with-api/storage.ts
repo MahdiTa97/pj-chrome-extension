@@ -6,7 +6,7 @@ export interface LocalStorage {
 export interface LocalStorageOptions {
   lang?: 'fa' | 'en';
   isLoggedIn: boolean;
-  authToken: null;
+  authToken: string | null;
   profile?: Profile;
 }
 
