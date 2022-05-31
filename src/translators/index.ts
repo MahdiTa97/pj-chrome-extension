@@ -1,4 +1,4 @@
-import googleScholar from './google_scholar';
+import googleScholar from './google-scholar';
 import elmnet from './elmnet';
 
 // eslint-disable-next-line import/no-anonymous-default-export
