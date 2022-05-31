@@ -1,6 +1,6 @@
 import translators from '../../../translators';
 
-const scrapesHandler = (url, document) =>
+const scrapesHandler = (url: string, document: Document) =>
   translators
     .find((item) => item.target.test(url))
     .scrape(document, new URL(document.location.href));
