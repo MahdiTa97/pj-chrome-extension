@@ -15,7 +15,7 @@ onInstalled();
 loginPopupListener();
 
 // Listener: Updated Tab Message to Content Script
-// tabUpdaterListener();
+tabUpdaterListener();
 
 // Listener: Check Closed Windows and Update Storage
 chrome.tabs.onRemoved.addListener((id) => {
@@ -46,4 +46,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //   console.log('=====> mahdi in kar mikone <=====');
   // }
   sendResponse({ status: 'success' });
+  return;
 });

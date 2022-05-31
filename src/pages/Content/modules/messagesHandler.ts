@@ -9,6 +9,7 @@ const scrapesHandler = (url: string, document: Document) =>
 function extensionEnabler() {
   chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
     console.log('=====> res <=====', res);
+    return;
   });
 }
 
@@ -28,7 +29,7 @@ export function messagesHandler() {
               window.location.href,
               document
             );
-            console.log('=====> scrapesHandler <=====', translatorResponse);
+            console.log('=====> translatorResponse <=====', translatorResponse);
           }
         });
 
@@ -37,6 +38,7 @@ export function messagesHandler() {
       default:
         break;
     }
-    sendResponse('The message has been gotten from messagesHandler');
+    sendResponse({ status: 'success' });
+    return;
   });
 }
