@@ -1,9 +1,10 @@
+import { getStoredOptions } from '../../../lib/work-with-api/storage';
 import translators from '../../../translators';
 
 const scrapesHandler = (url: string, document: Document) =>
   translators
     .find((item) => item.target.test(url))
-    .scrape(document, new URL(document.location.href));
+    ?.scrape(document, new URL(document.location.href));
 
 function extensionEnabler() {
   chrome.runtime.sendMessage({ isEnabled: true }, (res) => {
@@ -19,11 +20,16 @@ export function messagesHandler() {
   ) {
     switch (request.message) {
       case 'TabUpdated':
-        extensionEnabler();
-        console.log(
-          '=====> scrapesHandler <=====',
-          scrapesHandler(window.location.href, document)
-        );
+        // Check if the user logged-in can enable extension
+        getStoredOptions().then((res) => {
+          if (res?.isLoggedIn) {
+            extensionEnabler();
+            console.log(
+              '=====> scrapesHandler <=====',
+              scrapesHandler(window.location.href, document)
+            );
+          }
+        });
 
         break;
 

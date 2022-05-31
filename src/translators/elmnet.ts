@@ -1,11 +1,11 @@
-export const label = 'Elmnet';
-export const target = /^https:\/\/elmnet[-.]ir\/(search|article)/;
+const label = 'Elmnet';
+const target = /^https:\/\/elmnet[-.]ir\/(search|article)/;
 
 const language = 'fa';
 
 const typeDict: {
   fa: string;
-  csl: ScrapeDataType;
+  csl: IScrapeDataType;
 }[] = [
   { fa: 'پایان‌نامه', csl: 'thesis' },
   { fa: 'مقاله کنفرانس', csl: 'paper-conference' },
@@ -13,7 +13,7 @@ const typeDict: {
   { fa: 'کتاب', csl: 'book' },
 ];
 
-const detailPage: Scrape = (document) => {
+const detailPage: TScrape = (document) => {
   // type
   const textType = document
     ?.querySelector('#info > h1 > span')
@@ -79,11 +79,11 @@ const detailPage: Scrape = (document) => {
   };
 };
 
-const listPage: Scrape = (document) => {
+const listPage: TScrape = (document) => {
   const articles = document.getElementsByClassName('articlerow');
 
   const result = Object.values(articles).reduce(
-    (acc: ScrapeData[], article) => {
+    (acc: IScrapeData[], article) => {
       // type
       const textType = article
         .querySelector('.title > .doc-type-box')
@@ -150,7 +150,7 @@ const listPage: Scrape = (document) => {
   return { type: 'collection', result };
 };
 
-export const scrape: Scrape = (document, url) => {
+const scrape: TScrape = (document, url) => {
   const type = url.pathname.replace('/', '').split('/')[0];
 
   switch (type) {
@@ -162,3 +162,11 @@ export const scrape: Scrape = (document, url) => {
       return null;
   }
 };
+
+const doWeb: IDoWeb = {
+  target,
+  scrape,
+  label,
+};
+
+export default doWeb;

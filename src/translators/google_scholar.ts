@@ -1,13 +1,13 @@
-export const label = 'Google Scholar';
-export const target =
+const label = 'Google Scholar';
+const target =
   /^https?:\/\/scholar[-.]google[-.](com|cat|(com?[-.])?[a-z]{2})(\.[^/]+)?\/(scholar(_case)?\?|citations\?)/;
 
 const language = 'en';
 
-export const scrape: Scrape = (document, url) => {
+const scrape: TScrape = (document, url) => {
   const type = 'article-journal';
 
-  const result: ScrapeData | ScrapeData[] = Array.from(
+  const result: IScrapeData | IScrapeData[] = Array.from(
     document.getElementsByClassName('gs_r gs_or gs_scl')
   ).map((tag) => {
     const title = tag.getElementsByClassName('gs_rt')[0].textContent?.trim();
@@ -43,3 +43,11 @@ export const scrape: Scrape = (document, url) => {
   });
   return { type: 'collection', result };
 };
+
+const doWeb: IDoWeb = {
+  target,
+  scrape,
+  label,
+};
+
+export default doWeb;

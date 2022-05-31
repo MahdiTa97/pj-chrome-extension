@@ -1,14 +1,14 @@
-type ScrapeDataType =
+type IScrapeDataType =
   | 'article-journal'
   | 'thesis'
   | 'paper-conference'
   | 'book';
 
-type ScrapeResult = ScrapeData | ScrapeData[];
+type TScrapeResult = IScrapeData | IScrapeData[];
 
-interface ScrapeData {
+interface IScrapeData {
   language?: string;
-  type?: ScrapeDataType;
+  type?: IScrapeDataType;
   creators?: { position?: string; literal?: string; type?: number }[];
   title?: string;
   abstracts?: string;
@@ -18,10 +18,16 @@ interface ScrapeData {
   keywords?: (string | undefined)[];
 }
 
-type Scrape = (
+type TScrape = (
   document: Document,
   url: URL
 ) => {
   type: 'document' | 'collection';
-  result?: ScrapeResult;
+  result?: TScrapeResult;
 } | null;
+
+interface IDoWeb {
+  target: RegExp;
+  scrape: TScrape;
+  label: string;
+}
