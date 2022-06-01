@@ -1,0 +1,5 @@
+export enum MessageType {
+  MAKE_ENABLE = 'MAKE_ENABLE',
+  MAKE_DISABLE = 'MAKE_DISABLE',
+  RUN_TRANSLATOR = 'RUN_TRANSLATOR',
+}
