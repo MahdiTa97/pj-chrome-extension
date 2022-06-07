@@ -13,14 +13,15 @@ export interface LocalStorageOptions {
 export type LocalStorageKeys = keyof LocalStorage;
 
 // ======== Options ========
-export function setStoredOptions(options: LocalStorageOptions): Promise<void> {
+export function setStoredOptions(
+  options: LocalStorageOptions
+): Promise<LocalStorageOptions> {
   const keys: LocalStorageKeys[] = ['options'];
-
   return new Promise((resolve) => {
     chrome.storage.local.get(keys, (res: LocalStorage) => {
       let values = { options: { ...res.options, ...options } };
       chrome.storage.local.set(values, () => {
-        resolve();
+        resolve(values.options);
       });
     });
   });

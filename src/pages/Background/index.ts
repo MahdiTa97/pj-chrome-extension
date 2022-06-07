@@ -1,3 +1,4 @@
+import { MessageStatus, MessageType } from '../../lib/constants';
 import {
   getStoredTabIdLogin,
   setStoredTabIdLogin,
@@ -28,23 +29,23 @@ chrome.tabs.onRemoved.addListener((id) => {
     });
 });
 
+function iconActivator(tabId?: number) {
+  chrome.action.setIcon({
+    path: {
+      16: '16x16.png',
+      32: '32x32.png',
+      64: '64x64.png',
+      128: '128x128.png',
+      256: '256x256.png',
+    },
+    tabId: tabId,
+  });
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log('=====> message <=====', message);
-  if (message.isEnabled) {
-    chrome.action.setIcon({
-      path: {
-        16: '16x16.png',
-        32: '32x32.png',
-        64: '64x64.png',
-        128: '128x128.png',
-        256: '256x256.png',
-      },
-      tabId: sender.tab?.id,
-    });
-  }
-  // else if (message.type === 'RUN_TRANSLATOR') {
-  //   console.log('=====> mahdi in kar mikone <=====');
-  // }
-  sendResponse({ status: 'success' });
-  return;
+  if (message.type === MessageType.MAKE_ENABLE) iconActivator(sender.tab?.id);
+  else if (message.type === MessageType.RUN_TRANSLATOR)
+    console.log('=====> mahdi in kar mikone <=====');
+  sendResponse({ status: MessageStatus.SUCCESS });
+  return true;
 });

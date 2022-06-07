@@ -1,3 +1,5 @@
+import { MessageType } from '../../lib/constants';
+import { lastErrorHandler } from '../../lib/utils';
 import { getStoredOptions } from '../../lib/work-with-api/storage';
 
 export function tabUpdaterListener() {
@@ -8,10 +10,11 @@ export function tabUpdaterListener() {
         chrome.tabs.sendMessage(
           tabId,
           {
-            message: 'TabUpdated',
+            type: MessageType.TAB_UPDATED,
           },
           (res) => {
-            console.log('=====> res <=====', chrome.runtime.lastError, res);
+            lastErrorHandler();
+            console.log('=====> res in tabUpdaterListener <=====', res);
           }
         );
       }

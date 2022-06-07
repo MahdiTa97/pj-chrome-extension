@@ -3,39 +3,31 @@ import { Login, LogoutAlert, Panel } from '../../components/popupComponents';
 import {
   getStoredOptions,
   LocalStorageOptions,
-  setStoredOptions,
 } from '../../lib/work-with-api/storage';
+import { logout, runTranslator } from './modules';
 import './Popup.css';
 
 const Popup = () => {
   const [alert, setAlert] = useState(false);
   const [options, setOptions] = useState<LocalStorageOptions | null>(null);
+  const [data, setData] = useState<TScrapeResponse | undefined>();
 
   function logoutHandler() {
-    setOptions({
-      isLoggedIn: false,
-      authToken: null,
-    });
-    setStoredOptions({
-      isLoggedIn: false,
-      authToken: null,
-    });
+    logout()
+      .then((res) => setOptions(res))
+      .catch((err) => console.log(err));
     setAlert(true);
   }
 
   useEffect(() => {
-    getStoredOptions().then((res) => {
-      setOptions(res);
-    });
+    getStoredOptions()
+      .then((res) => setOptions(res))
+      .catch((err) => console.log(err));
+
+    runTranslator()
+      .then((res) => setData(res))
+      .catch((err) => console.log(err));
   }, []);
-
-  // useEffect(() => {
-  //   chrome.runtime.sendMessage({ type: 'RUN_TRANSLATOR' }, (res) => {
-  //     console.log('=====> res in popup <=====', res);
-  //   });
-
-  //   return () => {};
-  // }, []);
 
   return (
     <div dir={options?.lang === 'fa' ? 'rtl' : 'ltr'}>
