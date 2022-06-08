@@ -3,9 +3,9 @@ import {
   getStoredTabIdLogin,
   setStoredTabIdLogin,
 } from '../../lib/work-with-api/storage';
-import { loginPopupListener } from './loginPopupListener';
-import { onInstalled } from './onInstalled';
-import { tabUpdaterListener } from './tabUpdaterListener';
+import { loginPopupListener } from './login-popup-listener';
+import { onInstalled } from './on-installed';
+import { tabUpdaterListener } from './tab-updater-listener';
 
 console.log('This is the background page.');
 
