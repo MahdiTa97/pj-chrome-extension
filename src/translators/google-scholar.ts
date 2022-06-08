@@ -10,7 +10,10 @@ const scrape: TScrape = (document, url) => {
   const result: IScrapeData | IScrapeData[] = Array.from(
     document.getElementsByClassName('gs_r gs_or gs_scl')
   ).map((tag) => {
-    const title = tag.getElementsByClassName('gs_rt')[0].textContent?.trim();
+    const title = tag
+      .getElementsByClassName('gs_rt')[0]
+      .getElementsByTagName('a')[0]
+      .textContent?.trim();
 
     const abstracts = tag
       .getElementsByClassName('gs_rs')[0]

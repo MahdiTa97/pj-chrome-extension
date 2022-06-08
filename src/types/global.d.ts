@@ -4,7 +4,7 @@ type IScrapeDataType =
   | 'paper-conference'
   | 'book';
 
-type TScrapeResult = IScrapeData | IScrapeData[];
+type TScrapeResult = IScrapeData[];
 
 interface IScrapeData {
   language?: string;

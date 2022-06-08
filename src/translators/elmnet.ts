@@ -67,15 +67,17 @@ const detailPage: TScrape = (document) => {
   return {
     type: 'document',
 
-    result: {
-      abstracts,
-      creators,
-      issued,
-      language,
-      title,
-      type,
-      publisher,
-    },
+    result: [
+      {
+        abstracts,
+        creators,
+        issued,
+        language,
+        title,
+        type,
+        publisher,
+      },
+    ],
   };
 };
 
