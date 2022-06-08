@@ -8,5 +8,9 @@
   "welcome": "خوش آمدید",
   "new_message": "پیغام جدید!",
   "see": "فهمیدم",
-  "logout_message": "خروج موفقیت آمیز بود"
+  "logout_message": "خروج موفقیت آمیز بود",
+  "tr_title": "عنوان مجموعه",
+  "tr_publisher": "پدیدآورندگان",
+  "tr_abstracts": "متن چکیده",
+  "tr_collectionTitle": "عنوان مجموعه"
 }

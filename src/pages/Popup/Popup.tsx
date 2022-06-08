@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Login, LogoutAlert, Panel } from '../../components/popupComponents';
+import {
+  Login,
+  LogoutAlert,
+  Panel,
+  TranslatorView,
+} from '../../components/popupComponents';
 import {
   getStoredOptions,
   LocalStorageOptions,
@@ -10,7 +15,9 @@ import './Popup.css';
 const Popup = () => {
   const [alert, setAlert] = useState(false);
   const [options, setOptions] = useState<LocalStorageOptions | null>(null);
-  const [data, setData] = useState<TScrapeResponse | undefined>();
+  const [translatorData, setTranslatorData] = useState<
+    TScrapeResponse | undefined
+  >();
 
   function logoutHandler() {
     logout()
@@ -25,7 +32,7 @@ const Popup = () => {
       .catch((err) => console.log(err));
 
     runTranslator()
-      .then((res) => setData(res))
+      .then((res) => setTranslatorData(res))
       .catch((err) => console.log(err));
   }, []);
 
@@ -34,6 +41,9 @@ const Popup = () => {
       {options?.isLoggedIn ? (
         <>
           <Panel profile={options.profile} logoutHandler={logoutHandler} />
+          {translatorData ? (
+            <TranslatorView translatorData={translatorData} />
+          ) : null}
         </>
       ) : alert ? (
         <LogoutAlert message="logout_message" setAlert={setAlert} />
