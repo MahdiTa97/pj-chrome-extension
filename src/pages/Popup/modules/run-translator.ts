@@ -1,8 +1,8 @@
 import { MessageType } from '../../../lib/constants';
 import { lastErrorHandler } from '../../../lib/utils';
 
-const runTranslator = () =>
-  new Promise((resolve: (value: TScrapeResponse) => void, reject) => {
+const runTranslator = (): Promise<TScrapeResponse> =>
+  new Promise((resolve, reject) => {
     chrome.tabs.query(
       {
         active: true,

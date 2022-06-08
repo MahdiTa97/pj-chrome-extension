@@ -3,8 +3,8 @@ import {
   setStoredOptions,
 } from '../../../lib/work-with-api/storage';
 
-const logout = () =>
-  new Promise((resolve: (value: LocalStorageOptions) => void, reject) => {
+const logout = (): Promise<LocalStorageOptions> =>
+  new Promise((resolve, reject) => {
     setStoredOptions({
       isLoggedIn: false,
       authToken: null,
