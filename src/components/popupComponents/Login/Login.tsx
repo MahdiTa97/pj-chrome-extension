@@ -1,40 +1,18 @@
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
-import {
-  getStoredTabIdLogin,
-  setStoredTabIdLogin,
-} from '../../../lib/work-with-api/storage';
+import { getStoredTabIdLogin } from '../../../lib/work-with-api/storage';
 import { Text } from '../../ui';
+import { windowLoginCreator } from './modules';
 
 const Login = () => {
   const [value, setValue] = useState<number | null>();
 
   useEffect(() => {
-    getStoredTabIdLogin().then((res) => {
-      setValue(res);
-    });
+    getStoredTabIdLogin().then((res) => setValue(res));
   }, []);
 
   function handleClick() {
-    const screenWidth = window.screen.availWidth;
-    const screenHeight = window.screen.availHeight;
-    const width = 500;
-    const height = 500;
-
-    chrome.windows
-      .create({
-        url: 'https://core.pajoohyar.ir/inoor/login?context=4',
-        width: width,
-        height: height,
-        left: Math.round((screenWidth - width) / 2),
-        top: Math.round((screenHeight - height) / 2),
-        type: 'popup',
-      })
-      .then((event) => {
-        if (event?.tabs?.[0].id) {
-          setStoredTabIdLogin(event?.tabs?.[0].id);
-        }
-      });
+    windowLoginCreator().then((res) => setValue(res));
   }
 
   const isLoading = value !== null;
