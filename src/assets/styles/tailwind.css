@@ -13,4 +13,13 @@
   body {
     font-family: var(--font-sans);
   }
+
+  /* Flip on the X axis */
+  .flip-horizontal {
+    transform: scaleY(-1);
+  }
+  /* Flip on the Y axis */
+  .flip-vertical {
+    transform: scaleX(-1);
+  }
 }
