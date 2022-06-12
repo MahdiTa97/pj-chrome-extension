@@ -12,5 +12,8 @@
   "tr_title": "عنوان مجموعه",
   "tr_publisher": "پدیدآورندگان",
   "tr_abstracts": "متن چکیده",
-  "tr_collectionTitle": "عنوان مجموعه"
+  "tr_collectionTitle": "عنوان مجموعه",
+  "all": "همه",
+  "reset": "هیچکدام",
+  "save": "ذخیره"
 }

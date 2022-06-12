@@ -10,3 +10,9 @@
 .h3 {
   @apply text-lg;
 }
+.h4 {
+  @apply text-base;
+}
+.tr-resp {
+  @apply text-sm;
+}

@@ -7,6 +7,8 @@ import React, {
 import './text.css';
 import { translator as t } from '../../../lib/utils';
 
+type Variant = 'p' | 'h2' | 'h1' | 'h3' | 'h4' | 'tr-resp';
+
 interface Props {
   variant?: Variant;
   className?: string;
@@ -22,8 +24,6 @@ type ComponentType =
   | React.ComponentType<any>
   | string;
 
-type Variant = 'p' | 'h2' | 'h1' | 'h3';
-
 const Text: FunctionComponent<Props> = ({
   style,
   className = '',
@@ -38,7 +38,9 @@ const Text: FunctionComponent<Props> = ({
     h1: 'h1',
     h2: 'h2',
     h3: 'h3',
+    h4: 'h4',
     p: 'p',
+    'tr-resp': 'p',
   };
 
   const Component: ComponentType = componentsMap![variant!];

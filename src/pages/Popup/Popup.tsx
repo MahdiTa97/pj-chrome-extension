@@ -40,7 +40,11 @@ const Popup = () => {
     <div dir={options?.lang === 'fa' ? 'rtl' : 'ltr'}>
       {options?.isLoggedIn ? (
         <>
-          <Panel profile={options.profile} logoutHandler={logoutHandler} />
+          <Panel
+            profile={options.profile}
+            logoutHandler={logoutHandler}
+            className="sticky top-0 z-20"
+          />
           {translatorData ? (
             <TranslatorView translatorData={translatorData} />
           ) : null}
