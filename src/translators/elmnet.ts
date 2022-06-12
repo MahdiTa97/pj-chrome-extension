@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 const label = 'Elmnet';
 const target = /^https:\/\/elmnet[-.]ir\/(search|article)/;
 
@@ -64,11 +66,14 @@ const detailPage: TScrape = (document) => {
     keywords.push(keywordsString?.children[i].textContent?.trim());
   }
 
+  const id = nanoid(5);
+
   return {
     type: 'document',
 
     result: [
       {
+        id,
         abstracts,
         creators,
         issued,
@@ -134,8 +139,10 @@ const listPage: TScrape = (document) => {
       if (!acc) {
         acc = [];
       }
+      const id = nanoid(5);
 
       acc.push({
+        id,
         language,
         abstracts,
         type,

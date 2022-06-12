@@ -7,6 +7,7 @@ type IScrapeDataType =
 type TScrapeResult = IScrapeData[];
 
 interface IScrapeData {
+  id: string;
   language?: string;
   type?: IScrapeDataType;
   creators?: { position?: string; literal?: string; type?: number }[];

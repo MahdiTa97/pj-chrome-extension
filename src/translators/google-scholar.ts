@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 const label = 'Google Scholar';
 const target =
   /^https?:\/\/scholar[-.]google[-.](com|cat|(com?[-.])?[a-z]{2})(\.[^/]+)?\/(scholar(_case)?\?|citations\?)/;
@@ -33,8 +35,10 @@ const scrape: TScrape = (document, url) => {
     }));
 
     const issued = { dateParts: [[date]] };
+    const id = nanoid(5);
 
     return {
+      id,
       language,
       type,
       creators,
