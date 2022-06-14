@@ -1,6 +1,7 @@
 import React, { useCallback, useReducer, useState } from 'react';
 import { Text } from '../../ui';
 import cn from 'classnames';
+import { numToFa } from '../../../lib/utils';
 
 interface Props {
   translatorData: TScrapeResponse;
@@ -127,7 +128,7 @@ const TranslatorView = (props: Props) => {
               readOnly
             />
             <Text isTranslationDisabled variant="tr-resp" className="w-6 px-1">
-              {index + 1}
+              {numToFa(index + 1)}
             </Text>
             <Text isTranslationDisabled variant="tr-resp">
               {item.title}
