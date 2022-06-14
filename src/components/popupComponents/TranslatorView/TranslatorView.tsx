@@ -5,6 +5,7 @@ import { numToFa } from '../../../lib/utils';
 
 interface Props {
   translatorData: TScrapeResponse;
+  collections?: ICollections;
 }
 
 const headersNames = [
@@ -63,8 +64,7 @@ function reducer(state: IState, action: IAction): IState {
 }
 
 const TranslatorView = (props: Props) => {
-  const { translatorData } = props;
-  console.log('=====> translatorData <=====', translatorData);
+  const { translatorData, collections } = props;
   const [{ selectedItems }, dispatch] = useReducer(reducer, initialState);
 
   function addToItems(item: IScrapeData) {
@@ -91,29 +91,32 @@ const TranslatorView = (props: Props) => {
     [selectedItems]
   );
 
-  const saveBtnCn = cn('btn btn-block', {
+  const saveBtnCn = cn('btn btn-block btn-primary', {
     'btn-disabled': !selectedItems.length,
   });
 
   return (
     <div className="overflow-x-auto">
-      <div className="flex justify-between w-full px-2 py-2 cursor-default text-slate-300 bg-slate-600 fixed z-10">
+      <div className="fixed z-10 flex justify-between w-full px-2 py-2 cursor-default text-base-100 bg-accent">
         <Text variant="h4" className="mx-5">
           tr_title
         </Text>
         <div className="d-flex">
           <button
-            className="btn btn-xs"
+            className="btn btn-secondary btn-xs"
             onClick={() => selectAllItems(translatorData?.result)}
           >
             <Text variant="p">all</Text>
           </button>
-          <button className="mx-2 btn btn-xs" onClick={resetItems}>
+          <button
+            className="mx-2 btn btn-secondary btn-xs"
+            onClick={resetItems}
+          >
             <Text variant="p">reset</Text>
           </button>
         </div>
       </div>
-      <div className="mb-16 mt-12">
+      <div className="mt-12 mb-16">
         {translatorData?.result?.map((item, index) => (
           <div
             key={item.id}
@@ -124,7 +127,7 @@ const TranslatorView = (props: Props) => {
               dir="ltr"
               type="checkbox"
               checked={selectedItems.some((value) => value.id === item.id)}
-              className="mx-1 border-gray-400 checkbox flip-vertical checkbox-sm"
+              className="mx-1 border-gray-400 checkbox flip-vertical checkbox-sm checkbox-secondary"
               readOnly
             />
             <Text isTranslationDisabled variant="tr-resp" className="w-6 px-1">
@@ -140,6 +143,13 @@ const TranslatorView = (props: Props) => {
         <button className={saveBtnCn} disabled={!selectedItems.length}>
           <Text variant="p">save</Text>
         </button>
+        {/* <select className="select select-bordered w-full max-w-xs select-sm">
+          <option disabled selected>
+            Who shot first?
+          </option>
+          <option>Han Solo</option>
+          <option>Greedo</option>
+        </select> */}
       </div>
     </div>
   );

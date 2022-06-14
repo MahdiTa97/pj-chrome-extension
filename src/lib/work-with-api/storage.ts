@@ -8,6 +8,7 @@ export interface LocalStorageOptions {
   isLoggedIn: boolean;
   authToken: string | null;
   profile?: Profile;
+  collections?: ICollections;
 }
 
 export type LocalStorageKeys = keyof LocalStorage;

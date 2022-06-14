@@ -1,10 +1,12 @@
 import { getStoredOptions, setStoredOptions } from '../work-with-api/storage';
 
-const BASE_URL = 'https://core.pajoohyar.ir';
+const BASE_URL = 'https://core.pajoohyar.ir/api';
+
+type Props = Omit<RequestInit, 'body'> & { body?: Object };
 
 async function apiClient(
   endpoint: string,
-  { body, ...customConfig }: RequestInit = {}
+  { body, ...customConfig }: Props = {}
 ) {
   const res = await getStoredOptions();
 

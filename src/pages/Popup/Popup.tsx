@@ -47,7 +47,10 @@ const Popup = () => {
             className="sticky top-0 z-20"
           />
           {translatorData ? (
-            <TranslatorView translatorData={translatorData} />
+            <TranslatorView
+              translatorData={translatorData}
+              collections={options.collections}
+            />
           ) : (
             <NotSupport />
           )}

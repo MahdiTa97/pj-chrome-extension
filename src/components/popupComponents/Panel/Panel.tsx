@@ -11,7 +11,7 @@ interface Props {
 
 const Panel = (props: Props) => {
   const { logoutHandler, profile, className } = props;
-  const rootCn = cn('navbar bg-slate-800', className);
+  const rootCn = cn('navbar bg-neutral-focus', className);
 
   return (
     <div className={rootCn}>

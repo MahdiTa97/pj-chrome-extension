@@ -9,6 +9,7 @@ const logout = (): Promise<LocalStorageOptions> =>
       isLoggedIn: false,
       authToken: null,
       profile: undefined,
+      collections: undefined,
     })
       .then((res) => resolve(res))
       .catch(() => reject());

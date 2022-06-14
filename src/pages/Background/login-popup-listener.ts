@@ -1,4 +1,4 @@
-import { apiClient } from '../../lib/utils';
+import { getPrivateCollectionsApi, getProfileApi } from '../../lib/api';
 import {
   getStoredTabIdLogin,
   setStoredOptions,
@@ -17,18 +17,17 @@ export function loginPopupListener() {
         (async function () {
           try {
             // Request to get user profile data
-            const profile = await apiClient('api/auth/me', {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${authToken}`,
-              },
-            });
+            const profile = await getProfileApi(authToken);
+
+            // Request to get user collections data
+            const collections = await getPrivateCollectionsApi(authToken);
 
             // Set data in the chrome storage options-field
             await setStoredOptions({
               authToken,
               isLoggedIn,
-              profile: profile,
+              profile,
+              collections,
             });
 
             // Get opened tab id from chrome storage
