@@ -15,5 +15,7 @@
   "tr_collectionTitle": "عنوان مجموعه",
   "all": "همه",
   "reset": "هیچکدام",
-  "save": "ذخیره"
+  "save": "ذخیره",
+  "not_support_message": "متاسفانه این صفحه پشتیبانی نمیشود!",
+  "not_support_report": "درخواست پشتیبانی وبسایت"
 }

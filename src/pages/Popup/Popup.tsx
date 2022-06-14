@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Login,
   LogoutAlert,
+  NotSupport,
   Panel,
   TranslatorView,
 } from '../../components/popupComponents';
@@ -47,7 +48,9 @@ const Popup = () => {
           />
           {translatorData ? (
             <TranslatorView translatorData={translatorData} />
-          ) : null}
+          ) : (
+            <NotSupport />
+          )}
         </>
       ) : alert ? (
         <LogoutAlert message="logout_message" setAlert={setAlert} />
