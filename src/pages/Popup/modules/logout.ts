@@ -10,6 +10,7 @@ const logout = (): Promise<LocalStorageOptions> =>
       authToken: null,
       profile: undefined,
       collections: undefined,
+      itemSchemas: undefined,
     })
       .then((res) => resolve(res))
       .catch(() => reject());

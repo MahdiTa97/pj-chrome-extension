@@ -1,6 +1,8 @@
 import { apiClient } from '../utils';
 
-const getPrivateCollectionsApi = async (authToken: string): Promise<any> => {
+const getPrivateCollectionsApi = async (
+  authToken: string
+): Promise<ICollections> => {
   try {
     const res = await apiClient('online-library/collections/search', {
       method: 'POST',
@@ -9,7 +11,7 @@ const getPrivateCollectionsApi = async (authToken: string): Promise<any> => {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    return res;
+    return res.data;
   } catch (error) {
     throw new Error('error');
   }

@@ -9,6 +9,7 @@ export interface LocalStorageOptions {
   authToken: string | null;
   profile?: Profile;
   collections?: ICollections;
+  itemSchemas?: IItemSchemas;
 }
 
 export type LocalStorageKeys = keyof LocalStorage;

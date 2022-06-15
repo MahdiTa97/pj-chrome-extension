@@ -1,4 +1,8 @@
-import { getPrivateCollectionsApi, getProfileApi } from '../../lib/api';
+import {
+  getItemSchemasApi,
+  getPrivateCollectionsApi,
+  getProfileApi,
+} from '../../lib/api';
 import {
   getStoredTabIdLogin,
   setStoredOptions,
@@ -22,12 +26,16 @@ export function loginPopupListener() {
             // Request to get user collections data
             const collections = await getPrivateCollectionsApi(authToken);
 
+            // Request to get item schemas
+            const itemSchemas = await getItemSchemasApi(authToken);
+
             // Set data in the chrome storage options-field
             await setStoredOptions({
               authToken,
               isLoggedIn,
               profile,
               collections,
+              itemSchemas,
             });
 
             // Get opened tab id from chrome storage

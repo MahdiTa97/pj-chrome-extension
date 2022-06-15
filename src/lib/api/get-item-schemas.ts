@@ -1,8 +1,8 @@
 import { apiClient } from '../utils';
 
-const getProfileApi = async (authToken: string): Promise<Profile> => {
+const getItemSchemasApi = async (authToken: string): Promise<IItemSchemas> => {
   try {
-    const res = await apiClient('auth/me', {
+    const res = await apiClient('item-schemas', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -14,4 +14,4 @@ const getProfileApi = async (authToken: string): Promise<Profile> => {
   }
 };
 
-export default getProfileApi;
+export default getItemSchemasApi;

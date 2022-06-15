@@ -2,83 +2,39 @@ import React, { useCallback, useReducer, useState } from 'react';
 import { Text } from '../../ui';
 import cn from 'classnames';
 import { numToFa } from '../../../lib/utils';
+import { useTranslator } from '../../../lib/hooks';
+import { createDocumentApi } from '../../../lib/api';
 
 interface Props {
   translatorData: TScrapeResponse;
   collections?: ICollections;
+  itemSchemas?: IItemSchemas;
 }
 
-const headersNames = [
-  '',
-  'tr_title',
-  // 'tr_publisher',
-  // 'tr_abstracts',
-  // 'tr_collectionTitle',
-];
-
-// <td>{item.creators?.map((item) => item.literal + ', ')}</td>
-// <td>{item.abstracts}</td>
-// <td>{item.collectionTitle}</td>
-
-const initialState = { selectedItems: [] };
-
-type TActionTypes = 'ADD_ITEM' | 'REMOVE_ITEM' | 'RESET' | 'SELECT_ALL';
-interface IAction {
-  type: TActionTypes;
-  payload?: {
-    item?: IScrapeData;
-    id?: string;
-    items?: IScrapeData[];
-  };
-}
-interface IState {
-  selectedItems: Array<IScrapeData> | [];
+interface IGetSchemaId {
+  itemSchemas: IItemSchemas | undefined;
+  item: IScrapeData;
 }
 
-function reducer(state: IState, action: IAction): IState {
-  switch (action.type) {
-    case 'ADD_ITEM':
-      if (action.payload?.item) {
-        const selectedItems = [...state.selectedItems, action.payload.item];
-        return { ...state, selectedItems };
-      }
-      return state;
-    case 'REMOVE_ITEM':
-      if (action.payload?.id) {
-        const selectedItems = state.selectedItems.filter(
-          (obj) => obj.id !== action.payload?.id
-        );
-        return { ...state, selectedItems };
-      }
-      return state;
-    case 'SELECT_ALL':
-      if (action.payload?.items) {
-        return { ...state, selectedItems: action.payload?.items };
-      }
-      return state;
-    case 'RESET':
-      return initialState;
-    default:
-      return state;
-  }
-}
+const getSchemaId = ({ itemSchemas, item }: IGetSchemaId) =>
+  itemSchemas?.data.find((schema) => schema.csl_slug === item.type)?.id;
 
 const TranslatorView = (props: Props) => {
-  const { translatorData, collections } = props;
-  const [{ selectedItems }, dispatch] = useReducer(reducer, initialState);
+  const { translatorData, collections, itemSchemas } = props;
+  const [collectionId, setCollectionId] = useState<number | undefined>(
+    collections?.data[0].id
+  );
+  const [loading, setLoading] = useState<boolean>(false);
 
-  function addToItems(item: IScrapeData) {
-    return dispatch({ type: 'ADD_ITEM', payload: { item } });
-  }
-  function removeFromItems(id: string) {
-    return dispatch({ type: 'REMOVE_ITEM', payload: { id } });
-  }
-  function selectAllItems(items?: TScrapeResult) {
-    return dispatch({ type: 'SELECT_ALL', payload: { items } });
-  }
-  function resetItems() {
-    return dispatch({ type: 'RESET' });
-  }
+  const {
+    selectedItems,
+    addToItems,
+    removeFromItems,
+    resetItems,
+    selectAllItems,
+  } = useTranslator();
+
+  const canSave = selectedItems.length && collectionId && !loading;
 
   const triggerItem = useCallback(
     (item: IScrapeData) => {
@@ -88,19 +44,51 @@ const TranslatorView = (props: Props) => {
       if (isExistInItems) removeFromItems(item.id);
       else addToItems(item);
     },
-    [selectedItems]
+    [addToItems, removeFromItems, selectedItems]
   );
+
+  const handleSave = useCallback(() => {
+    setLoading(true);
+
+    if (selectedItems.length && collectionId) {
+      const promises = selectedItems.map(async (item) => {
+        const itemSchemaId = getSchemaId({ itemSchemas, item });
+        if (itemSchemaId) {
+          return await createDocumentApi({
+            collectionId,
+            itemSchemaId,
+            scrapeData: item,
+          });
+        }
+      });
+      Promise.all(promises).finally(() => {
+        setLoading(false);
+      });
+    }
+  }, [collectionId, itemSchemas, selectedItems]);
 
   const saveBtnCn = cn('btn btn-block btn-primary', {
     'btn-disabled': !selectedItems.length,
+    loading,
   });
 
   return (
     <div className="overflow-x-auto">
-      <div className="fixed z-10 flex justify-between w-full px-2 py-2 cursor-default text-base-100 bg-accent">
-        <Text variant="h4" className="mx-5">
-          tr_title
-        </Text>
+      <div className="fixed z-10 flex items-center justify-between w-full px-2 py-2 space-x-4 space-x-reverse cursor-default text-base-100 bg-accent">
+        {collections?.data.length ? (
+          <select
+            className="flex-1 select select-ghost select-sm"
+            onChange={(e) => setCollectionId(+e.target.value)}
+            defaultValue={String(collectionId)}
+          >
+            {collections?.data.map((collection) => (
+              <option value={collection.id} key={collection.id}>
+                {collection.title}
+              </option>
+            ))}
+          </select>
+        ) : null}
+
         <div className="d-flex">
           <button
             className="btn btn-secondary btn-xs"
@@ -140,16 +128,9 @@ const TranslatorView = (props: Props) => {
         ))}
       </div>
       <div className="fixed bottom-0 w-full p-2 bg-white">
-        <button className={saveBtnCn} disabled={!selectedItems.length}>
+        <button className={saveBtnCn} disabled={!canSave} onClick={handleSave}>
           <Text variant="p">save</Text>
         </button>
-        {/* <select className="select select-bordered w-full max-w-xs select-sm">
-          <option disabled selected>
-            Who shot first?
-          </option>
-          <option>Han Solo</option>
-          <option>Greedo</option>
-        </select> */}
       </div>
     </div>
   );

@@ -1,5 +1,47 @@
+// ======== SCHEMAS ========
+interface IItemSchemas {
+  data: IItemSchemasData[];
+}
+
+interface IItemSchemasData {
+  id: number;
+  title_fa: string;
+  title_en: string;
+  csl_slug: string;
+  icon: string;
+  status: number;
+  schema: ISchema[];
+  created_at: ICustomTime;
+  updated_at: ICustomTime;
+}
+
+interface ISchema {
+  name: string;
+  title: ITitle;
+  required: boolean | number;
+  main_info: boolean | number;
+  positions: IPosition[];
+  type: IType;
+}
+
+interface IPosition {
+  name: string;
+  title: ITitle;
+}
+
+interface ITitle {
+  fa: string;
+  en: string;
+}
+
+enum IType {
+  Year = 'year',
+  YearMonthDay = 'year-month-day',
+}
+
+// ======= COLLECTIONS ========
 interface ICollections {
-  data: ICollectionsData[];
+  data: ICollectionData[];
   meta: {
     total: number;
     current_page: number;
@@ -7,7 +49,7 @@ interface ICollections {
   };
 }
 
-interface ICollectionsData {
+interface ICollectionData {
   id: number;
   title: string;
   files: any[];

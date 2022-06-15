@@ -50,6 +50,7 @@ const Popup = () => {
             <TranslatorView
               translatorData={translatorData}
               collections={options.collections}
+              itemSchemas={options.itemSchemas}
             />
           ) : (
             <NotSupport />
