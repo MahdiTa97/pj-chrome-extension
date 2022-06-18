@@ -28,6 +28,24 @@ const Popup = () => {
   }
 
   useEffect(() => {
+    function storageListenerCallback(
+      changes: { [key: string]: chrome.storage.StorageChange },
+      areaName: 'sync' | 'local' | 'managed'
+    ) {
+      if (
+        areaName === 'local' &&
+        changes?.options?.oldValue.isLoggedIn === false &&
+        changes?.options?.newValue.isLoggedIn
+      ) {
+        setOptions(changes?.options?.newValue);
+        runTranslator()
+          .then((res) => setTranslatorData(res))
+          .catch((err) => console.log(err));
+      }
+    }
+
+    chrome.storage.onChanged.addListener(storageListenerCallback);
+
     getStoredOptions()
       .then((res) => setOptions(res))
       .catch((err) => console.log(err));
@@ -35,6 +53,10 @@ const Popup = () => {
     runTranslator()
       .then((res) => setTranslatorData(res))
       .catch((err) => console.log(err));
+
+    return () => {
+      chrome.storage.onChanged.removeListener(storageListenerCallback);
+    };
   }, []);
 
   return (
