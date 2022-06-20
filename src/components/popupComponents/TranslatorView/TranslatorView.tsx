@@ -1,9 +1,9 @@
-import React, { useCallback, useReducer, useState } from 'react';
-import { Text } from '../../ui';
 import cn from 'classnames';
-import { numToFa } from '../../../lib/utils';
-import { useTranslator } from '../../../lib/hooks';
+import React, { useCallback, useState } from 'react';
 import { createDocumentApi } from '../../../lib/api';
+import { useTranslator } from '../../../lib/hooks';
+import { numToFa } from '../../../lib/utils';
+import { Text } from '../../ui';
 
 interface Props {
   translatorData: TScrapeResponse;
@@ -22,7 +22,7 @@ const getSchemaId = ({ itemSchemas, item }: IGetSchemaId) =>
 const TranslatorView = (props: Props) => {
   const { translatorData, collections, itemSchemas } = props;
   const [collectionId, setCollectionId] = useState<number | undefined>(
-    collections?.data[0].id
+    collections?.data[collections?.data.length - 1].id
   );
   const [loading, setLoading] = useState<boolean>(false);
 
