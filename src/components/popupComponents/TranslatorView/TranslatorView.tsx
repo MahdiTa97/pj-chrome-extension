@@ -31,6 +31,7 @@ const TranslatorView = (props: Props) => {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(true);
 
   const {
     selectedItems,
@@ -81,10 +82,14 @@ const TranslatorView = (props: Props) => {
           });
         }
       });
-      Promise.all(promises).finally(() => {
-        setLoading(false);
-        nprogress.done();
-      });
+      Promise.all(promises)
+        .then(() => {
+          setShowSuccess(true);
+        })
+        .finally(() => {
+          setLoading(false);
+          nprogress.done();
+        });
     }
   }, [collectionId, itemSchemas, selectedItems]);
 
@@ -156,10 +161,29 @@ const TranslatorView = (props: Props) => {
           </div>
         ))}
       </div>
-      <div className="fixed bottom-0 w-full p-2 bg-white">
-        <button className={saveBtnCn} disabled={!canSave} onClick={handleSave}>
-          <Text variant="p">save</Text>
-        </button>
+      <div className="fixed bottom-0 w-full p-2 space-y-3">
+        {showSuccess ? (
+          <div className="flex flex-row space-y-0 alert alert-success">
+            <Text className="text-white" variant="tr-resp">
+              save_message
+            </Text>
+            <button
+              className="btn btn-sm"
+              onClick={() => setShowSuccess(false)}
+            >
+              <Text variant="p">see</Text>
+            </button>
+          </div>
+        ) : null}
+        <div className="bg-white">
+          <button
+            className={saveBtnCn}
+            disabled={!canSave}
+            onClick={handleSave}
+          >
+            <Text variant="p">save</Text>
+          </button>
+        </div>
       </div>
     </div>
   );
