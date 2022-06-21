@@ -19,11 +19,6 @@ const DropDown = ({ logoutHandler, profile }: DropDownProps) => (
       <li className="select-disabled text-slate-500">
         <Text variant="p">{profile?.username}</Text>
       </li>
-      <li className="hover-bordered">
-        <Text variant="p" className="text-slate-900">
-          settings
-        </Text>
-      </li>
       <li onClick={() => logoutHandler()} className="hover-bordered">
         <Text variant="p" className="text-slate-900">
           logout

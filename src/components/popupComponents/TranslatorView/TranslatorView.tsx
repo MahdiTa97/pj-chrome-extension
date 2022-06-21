@@ -69,6 +69,7 @@ const TranslatorView = (props: Props) => {
 
   const handleSave = useCallback(() => {
     setLoading(true);
+    setShowSuccess(false);
     nprogress.start();
 
     if (selectedItems.length && collectionId) {
