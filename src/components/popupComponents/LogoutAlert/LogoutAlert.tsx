@@ -11,7 +11,7 @@ const LogoutAlert = (props: Props) => {
   const { message, setAlert } = props;
 
   return (
-    <div className="shadow-none alert">
+    <div className="shadow-none alert bg-white">
       <div>
         <InformationCircleIcon className="w-6 h-6 stroke-info" />
         <Text className="text-xs">{message}</Text>
