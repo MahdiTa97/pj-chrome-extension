@@ -31,7 +31,7 @@ const TranslatorView = (props: Props) => {
   );
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [showSuccess, setShowSuccess] = useState<boolean>(true);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   const {
     selectedItems,
