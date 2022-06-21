@@ -4,7 +4,7 @@ import { InformationCircleIcon } from '@heroicons/react/outline';
 
 const NotSupport = () => (
   <div className="flex flex-col items-center justify-center p-5 space-y-5">
-    <div className="flex flex-row items-center justify-center alert alert-info">
+    <div className="flex flex-row items-center justify-center alert shadow-none space-y-0">
       <Text variant="h4">not_support_message</Text>
       <InformationCircleIcon className="w-6 h-6" />
     </div>
