@@ -9,10 +9,11 @@ interface Props {
 
 const LogoutAlert = (props: Props) => {
   const { message, setAlert } = props;
+
   return (
-    <div className="alert">
+    <div className="shadow-none alert">
       <div>
-        <InformationCircleIcon className="stroke-info w-6 h-6" />
+        <InformationCircleIcon className="w-6 h-6 stroke-info" />
         <div>
           <Text variant="h3" className="font-bold">
             new_message
