@@ -25,9 +25,6 @@
       "256": "256x256_gray.png"
     }
   },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
-  },
   "content_scripts": [
     {
       "matches": [
@@ -39,7 +36,6 @@
       "css": ["content.styles.css"]
     }
   ],
-  "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
       "resources": [
