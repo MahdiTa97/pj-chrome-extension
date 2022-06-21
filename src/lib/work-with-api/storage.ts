@@ -9,6 +9,7 @@ export interface LocalStorageOptions {
   authToken: string | null;
   profile?: Profile;
   collections?: ICollections;
+  defaultCollection?: ICollectionData;
   itemSchemas?: IItemSchemas;
 }
 
@@ -34,6 +35,34 @@ export function getStoredOptions(): Promise<LocalStorageOptions | null> {
   return new Promise((resolve) => {
     chrome.storage.local.get(keys, (res: LocalStorage) => {
       resolve(res.options ?? null);
+    });
+  });
+}
+
+// ======== Options -> default collection ========
+export function setStoredDefaultCollection(
+  defaultCollection: ICollectionData | undefined
+): Promise<void> {
+  const keys: LocalStorageKeys[] = ['options'];
+  return new Promise((resolve, reject) => {
+    if (defaultCollection) {
+      chrome.storage.local.get(keys, (res: LocalStorage) => {
+        let values = { options: { ...res.options, defaultCollection } };
+        chrome.storage.local.set(values, () => {
+          resolve();
+        });
+      });
+    } else {
+      reject();
+    }
+  });
+}
+
+export function getStoredDefaultCollection(): Promise<ICollectionData | null> {
+  const keys: LocalStorageKeys[] = ['options'];
+  return new Promise((resolve) => {
+    chrome.storage.local.get(keys, (res: LocalStorage) => {
+      resolve(res.options?.defaultCollection ?? null);
     });
   });
 }

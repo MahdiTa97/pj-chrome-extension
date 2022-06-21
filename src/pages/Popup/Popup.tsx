@@ -73,6 +73,7 @@ const Popup = () => {
               translatorData={translatorData}
               collections={options.collections}
               itemSchemas={options.itemSchemas}
+              defaultCollection={options?.defaultCollection}
             />
           ) : (
             <NotSupport />

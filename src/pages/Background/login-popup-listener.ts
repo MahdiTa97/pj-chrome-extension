@@ -26,6 +26,9 @@ export function loginPopupListener() {
             // Request to get user collections data
             const collections = await getPrivateCollectionsApi(authToken);
 
+            const defaultCollection =
+              collections?.data[collections?.data?.length - 1];
+
             // Request to get item schemas
             const itemSchemas = await getItemSchemasApi(authToken);
 
@@ -36,6 +39,7 @@ export function loginPopupListener() {
               profile,
               collections,
               itemSchemas,
+              defaultCollection,
             });
 
             // Get opened tab id from chrome storage

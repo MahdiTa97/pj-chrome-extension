@@ -3,12 +3,14 @@ import React, { useCallback, useState } from 'react';
 import { createDocumentApi } from '../../../lib/api';
 import { useTranslator } from '../../../lib/hooks';
 import { numToFa } from '../../../lib/utils';
+import { setStoredDefaultCollection } from '../../../lib/work-with-api/storage';
 import { Text } from '../../ui';
 
 interface Props {
   translatorData: TScrapeResponse;
   collections?: ICollections;
   itemSchemas?: IItemSchemas;
+  defaultCollection?: ICollectionData;
 }
 
 interface IGetSchemaId {
@@ -20,10 +22,12 @@ const getSchemaId = ({ itemSchemas, item }: IGetSchemaId) =>
   itemSchemas?.data.find((schema) => schema.csl_slug === item.type)?.id;
 
 const TranslatorView = (props: Props) => {
-  const { translatorData, collections, itemSchemas } = props;
+  const { translatorData, collections, itemSchemas, defaultCollection } = props;
+
   const [collectionId, setCollectionId] = useState<number | undefined>(
-    collections?.data[collections?.data.length - 1].id
+    defaultCollection?.id
   );
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const {
@@ -35,6 +39,15 @@ const TranslatorView = (props: Props) => {
   } = useTranslator();
 
   const canSave = selectedItems.length && collectionId && !loading;
+
+  const setCollectionIdHandler = useCallback(
+    (collectionId: number | undefined) => {
+      setStoredDefaultCollection(
+        collections?.data.find((item) => item.id === collectionId)
+      ).then(() => setCollectionId(collectionId));
+    },
+    [collections?.data]
+  );
 
   const triggerItem = useCallback(
     (item: IScrapeData) => {
@@ -78,7 +91,7 @@ const TranslatorView = (props: Props) => {
         {collections?.data.length ? (
           <select
             className="flex-1 select select-ghost select-sm"
-            onChange={(e) => setCollectionId(+e.target.value)}
+            onChange={(e) => setCollectionIdHandler(+e.target.value)}
             defaultValue={String(collectionId)}
           >
             {collections?.data.map((collection) => (
