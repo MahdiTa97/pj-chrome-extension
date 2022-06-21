@@ -1,4 +1,6 @@
 import cn from 'classnames';
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css';
 import React, { useCallback, useState } from 'react';
 import { createDocumentApi } from '../../../lib/api';
 import { useTranslator } from '../../../lib/hooks';
@@ -38,6 +40,10 @@ const TranslatorView = (props: Props) => {
     selectAllItems,
   } = useTranslator();
 
+  nprogress.configure({
+    showSpinner: false,
+  });
+
   const canSave = selectedItems.length && collectionId && !loading;
 
   const setCollectionIdHandler = useCallback(
@@ -62,6 +68,7 @@ const TranslatorView = (props: Props) => {
 
   const handleSave = useCallback(() => {
     setLoading(true);
+    nprogress.start();
 
     if (selectedItems.length && collectionId) {
       const promises = selectedItems.map(async (item) => {
@@ -76,6 +83,7 @@ const TranslatorView = (props: Props) => {
       });
       Promise.all(promises).finally(() => {
         setLoading(false);
+        nprogress.done();
       });
     }
   }, [collectionId, itemSchemas, selectedItems]);
@@ -131,9 +139,17 @@ const TranslatorView = (props: Props) => {
               className="mx-1 border-gray-400 checkbox flip-vertical checkbox-sm checkbox-secondary"
               readOnly
             />
-            <Text isTranslationDisabled variant="tr-resp" className="w-6 px-1">
-              {numToFa(index + 1)}
-            </Text>
+            {translatorData?.result?.length &&
+            translatorData.result.length > 1 ? (
+              <Text
+                isTranslationDisabled
+                variant="tr-resp"
+                className="w-6 px-1"
+              >
+                {numToFa(index + 1)}
+              </Text>
+            ) : null}
+
             <Text isTranslationDisabled variant="tr-resp">
               {item.title}
             </Text>
