@@ -14,12 +14,7 @@ const LogoutAlert = (props: Props) => {
     <div className="shadow-none alert">
       <div>
         <InformationCircleIcon className="w-6 h-6 stroke-info" />
-        <div>
-          <Text variant="h3" className="font-bold">
-            new_message
-          </Text>
-          <Text className="text-xs">{message}</Text>
-        </div>
+        <Text className="text-xs">{message}</Text>
       </div>
       <div className="flex-none">
         <button className="btn btn-sm" onClick={() => setAlert(false)}>
