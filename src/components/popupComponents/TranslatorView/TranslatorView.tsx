@@ -7,6 +7,7 @@ import { useTranslator } from '../../../lib/hooks';
 import { numToFa } from '../../../lib/utils';
 import { setStoredDefaultCollection } from '../../../lib/work-with-api/storage';
 import { Text } from '../../ui';
+import './translatorView.css';
 
 interface Props {
   translatorData: TScrapeResponse;
@@ -131,7 +132,7 @@ const TranslatorView = (props: Props) => {
           </button>
         </div>
       </div>
-      <div className="mt-12 mb-16">
+      <div className="mt-12 mb-16 min-h-5">
         {translatorData?.result?.map((item, index) => (
           <div
             key={item.id}
