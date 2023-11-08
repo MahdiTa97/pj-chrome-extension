@@ -49,7 +49,7 @@ This will create a `dist` directory with the built project.
 
 ## Download
 
-You can download the latest build of the extension from [here](http://185.181.180.47:8090/pajoohyar/pj-chrome-extension/uploads/146f5442a871750b917f6bc1e0b02d21/chrome-extension_1.0.3__1_.zip).
+You can download the latest build of the extension from [here](https://github.com/MahdiTa97/pj-chrome-extension/releases/download/v1.0.3/chrome-extension_1.0.3.zip).
 
 ## Contributing
 
